@@ -127,14 +127,14 @@ And here is the response:
   "total_records": 3,
   "_links": {
     "self": {
-      "href": "http://localhost:3000/api/beta/reps?lat=42.3134848&long=-71.2072321"
+      "href": "https://phone-your-rep.herokuapp.com/api/beta/reps?lat=42.3134848&long=-71.2072321"
     }
   },
   "reps": [
     {
-      "self": "http://localhost:3000/reps/M000133",
+      "self": "https://phone-your-rep.herokuapp.com/api/beta/reps/M000133",
       "state": {
-        "self": "http://localhost:3000/states/25",
+        "self": "https://phone-your-rep.herokuapp.com/states/25",
         "state_code": "25",
         "name": "Massachusetts",
         "abbr": "MA"
@@ -163,7 +163,7 @@ And here is the response:
       "instagram_id": null,
       "office_locations": [
         {
-          "self": "http://localhost:3000/office_locations/1314",
+          "self": "https://phone-your-rep.herokuapp.com/api/beta/office_locations/1314",
           "id": 1314,
           "bioguide_id": "M000133",
           "office_type": "district",
@@ -179,11 +179,11 @@ And here is the response:
           "hours": "",
           "latitude": 42.3613091,
           "longitude": -71.0593927,
-          "v_card_link": "http://localhost:3000/v_cards/1314",
+          "v_card_link": "https://phone-your-rep.herokuapp.com/v_cards/1314",
           "qr_code_link": "https://s3.amazonaws.com/phone-your-rep-images/9o6tqptj1_Markey_district_1314.png"
         },
         {
-          "self": "http://localhost:3000/office_locations/1315",
+          "self": "https://phone-your-rep.herokuapp.com/api/beta/office_locations/1315",
           "id": 1315,
           "bioguide_id": "M000133",
           "office_type": "district",
@@ -199,11 +199,11 @@ And here is the response:
           "hours": "",
           "latitude": 41.6999176,
           "longitude": -71.1587266,
-          "v_card_link": "http://localhost:3000/v_cards/1315",
+          "v_card_link": "https://phone-your-rep.herokuapp.com/v_cards/1315",
           "qr_code_link": "https://s3.amazonaws.com/phone-your-rep-images/3c4hp2pyzd_Markey_district_1315.png"
         },
         {
-          "self": "http://localhost:3000/office_locations/1316",
+          "self": "https://phone-your-rep.herokuapp.com/api/beta/office_locations/1316",
           "id": 1316,
           "bioguide_id": "M000133",
           "office_type": "district",
@@ -219,11 +219,11 @@ And here is the response:
           "hours": "",
           "latitude": 42.1032165,
           "longitude": -72.5929441,
-          "v_card_link": "http://localhost:3000/v_cards/1316",
+          "v_card_link": "https://phone-your-rep.herokuapp.com/v_cards/1316",
           "qr_code_link": "https://s3.amazonaws.com/phone-your-rep-images/77buuaccxv_Markey_district_1316.png"
         },
         {
-          "self": "http://localhost:3000/office_locations/200",
+          "self": "https://phone-your-rep.herokuapp.com/api/beta/office_locations/200",
           "id": 200,
           "bioguide_id": "M000133",
           "office_type": "capitol",
@@ -239,15 +239,15 @@ And here is the response:
           "hours": null,
           "latitude": 38.8928318,
           "longitude": -77.0043625,
-          "v_card_link": "http://localhost:3000/v_cards/200",
+          "v_card_link": "https://phone-your-rep.herokuapp.com/v_cards/200",
           "qr_code_link": "https://s3.amazonaws.com/phone-your-rep-images/5puc375jgq_Markey_capitol_200.png"
         }
       ]
     },
     {
-      "self": "http://localhost:3000/reps/W000817",
+      "self": "https://phone-your-rep.herokuapp.com/api/beta/reps/W000817",
       "state": {
-        "self": "http://localhost:3000/states/25",
+        "self": "https://phone-your-rep.herokuapp.com/states/25",
         "state_code": "25",
         "name": "Massachusetts",
         "abbr": "MA"
@@ -276,7 +276,7 @@ And here is the response:
       "instagram_id": null,
       "office_locations": [
         {
-          "self": "http://localhost:3000/office_locations/1897",
+          "self": "https://phone-your-rep.herokuapp.com/api/beta/office_locations/1897",
           "id": 1897,
           "bioguide_id": "W000817",
           "office_type": "district",
@@ -292,11 +292,11 @@ And here is the response:
           "hours": "",
           "latitude": 42.3613091,
           "longitude": -71.0593927,
-          "v_card_link": "http://localhost:3000/v_cards/1897",
+          "v_card_link": "https://phone-your-rep.herokuapp.com/v_cards/1897",
           "qr_code_link": "https://s3.amazonaws.com/phone-your-rep-images/9g9zrqnpbu_Warren_district_1897.png"
         },
         {
-          "self": "http://localhost:3000/office_locations/1898",
+          "self": "https://phone-your-rep.herokuapp.com/api/beta/office_locations/1898",
           "id": 1898,
           "bioguide_id": "W000817",
           "office_type": "district",
@@ -312,11 +312,11 @@ And here is the response:
           "hours": "",
           "latitude": 42.1032165,
           "longitude": -72.5929441,
-          "v_card_link": "http://localhost:3000/v_cards/1898",
+          "v_card_link": "https://phone-your-rep.herokuapp.com/v_cards/1898",
           "qr_code_link": "https://s3.amazonaws.com/phone-your-rep-images/61252tqznk_Warren_district_1898.png"
         },
         {
-          "self": "http://localhost:3000/office_locations/367",
+          "self": "https://phone-your-rep.herokuapp.com/api/beta/office_locations/367",
           "id": 367,
           "bioguide_id": "W000817",
           "office_type": "capitol",
@@ -332,21 +332,21 @@ And here is the response:
           "hours": null,
           "latitude": 38.8928318,
           "longitude": -77.0043625,
-          "v_card_link": "http://localhost:3000/v_cards/367",
+          "v_card_link": "https://phone-your-rep.herokuapp.com/v_cards/367",
           "qr_code_link": "https://s3.amazonaws.com/phone-your-rep-images/4cb6hk2egn_Warren_capitol_367.png"
         }
       ]
     },
     {
-      "self": "http://localhost:3000/reps/K000379",
+      "self": "https://phone-your-rep.herokuapp.com/api/beta/reps/K000379",
       "state": {
-        "self": "http://localhost:3000/states/25",
+        "self": "https://phone-your-rep.herokuapp.com/states/25",
         "state_code": "25",
         "name": "Massachusetts",
         "abbr": "MA"
       },
       "district": {
-        "self": "http://localhost:3000/districts/2504",
+        "self": "https://phone-your-rep.herokuapp.com/districts/2504",
         "full_code": "2504",
         "code": "04",
         "state_code": "25"
@@ -375,7 +375,7 @@ And here is the response:
       "instagram_id": "1328567154",
       "office_locations": [
         {
-          "self": "http://localhost:3000/office_locations/1200",
+          "self": "https://phone-your-rep.herokuapp.com/api/beta/office_locations/1200",
           "id": 1200,
           "bioguide_id": "K000379",
           "office_type": "district",
@@ -391,11 +391,11 @@ And here is the response:
           "hours": "M-F 9-5:30PM",
           "latitude": 42.3548224,
           "longitude": -71.1999166,
-          "v_card_link": "http://localhost:3000/v_cards/1200",
+          "v_card_link": "https://phone-your-rep.herokuapp.com/v_cards/1200",
           "qr_code_link": "https://s3.amazonaws.com/phone-your-rep-images/7gubdgo2kr_Kennedy_district_1200.png"
         },
         {
-          "self": "http://localhost:3000/office_locations/1199",
+          "self": "https://phone-your-rep.herokuapp.com/api/beta/office_locations/1199",
           "id": 1199,
           "bioguide_id": "K000379",
           "office_type": "district",
@@ -411,11 +411,11 @@ And here is the response:
           "hours": "M-F 9-5:30PM",
           "latitude": 41.9449626,
           "longitude": -71.2846799,
-          "v_card_link": "http://localhost:3000/v_cards/1199",
+          "v_card_link": "https://phone-your-rep.herokuapp.com/v_cards/1199",
           "qr_code_link": "https://s3.amazonaws.com/phone-your-rep-images/3yratflx0b_Kennedy_district_1199.png"
         },
         {
-          "self": "http://localhost:3000/office_locations/368",
+          "self": "https://phone-your-rep.herokuapp.com/api/beta/office_locations/368",
           "id": 368,
           "bioguide_id": "K000379",
           "office_type": "capitol",
@@ -431,7 +431,7 @@ And here is the response:
           "hours": null,
           "latitude": 38.8870943,
           "longitude": -77.0082254,
-          "v_card_link": "http://localhost:3000/v_cards/368",
+          "v_card_link": "https://phone-your-rep.herokuapp.com/v_cards/368",
           "qr_code_link": "https://s3.amazonaws.com/phone-your-rep-images/62qf7ihqu3_Kennedy_capitol_368.png"
         }
       ]
