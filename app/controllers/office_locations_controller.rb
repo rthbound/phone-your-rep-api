@@ -10,11 +10,11 @@ class OfficeLocationsController < ApplicationController
 
   private
 
-    def office_location_params
-      params.require(:office_location).permit(:id, :bioguide_id)
-    end
+  def office_location_params
+    params.require(:office_location).permit(:id, :bioguide_id)
+  end
 
-    def set_office_location
-      @office_location = OfficeLocation.find(params[:id])
-    end
+  def set_office_location
+    @office_location = OfficeLocation.find(params[:id])
+  end
 end

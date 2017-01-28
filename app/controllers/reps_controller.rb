@@ -52,13 +52,13 @@ class RepsController < ApplicationController
 
   private
 
-    def rep_params
-      params.require(:rep).permit(:id, :bioguide_id)
-    end
+  def rep_params
+    params.require(:rep).permit(:id, :bioguide_id)
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_rep
-      @rep = Rep.find_by(bioguide_id: params[:id])
-      @pfx = request.protocol + request.host_with_port
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_rep
+    @rep = Rep.find_by(bioguide_id: params[:id])
+    @pfx = request.protocol + request.host_with_port
+  end
 end

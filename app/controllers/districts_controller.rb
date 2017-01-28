@@ -10,11 +10,11 @@ class DistrictsController < ApplicationController
 
   private
 
-    def district_params
-      params.require(:district).permit(:id)
-    end
+  def district_params
+    params.require(:district).permit(:id)
+  end
 
-    def set_district
-      @district = District.find_by(full_code: params[:id])
-    end
+  def set_district
+    @district = District.find_by(full_code: params[:id])
+  end
 end

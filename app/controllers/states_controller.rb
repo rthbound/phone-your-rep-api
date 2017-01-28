@@ -10,11 +10,11 @@ class StatesController < ApplicationController
 
   private
 
-    def state_params
-      params.require(:state).permit(:id)
-    end
+  def state_params
+    params.require(:state).permit(:id)
+  end
 
-    def set_state
-      @state = State.find_by(state_code: params[:id])
-    end
+  def set_state
+    @state = State.find_by(state_code: params[:id])
+  end
 end
