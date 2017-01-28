@@ -48,7 +48,8 @@ If you've already configured the database before, and are just resetting or upda
 rails db:pyr:setup_alert
  ```
  If you're configuring for the first time and you're getting errors, or you don't want to do a complete reset, or you're some kind of control freak, here are the manual steps broken down:
- ####Creating the spatial database and migrating
+ 
+####Creating the spatial database and migrating
 ```
 rails db:drop # skip this unless you're resetting
 rails db:create
@@ -56,6 +57,7 @@ rails db:gis:setup
 rails db:migrate
 ```
 Migrating is your first test that you have a properly configured database. If you get errors while migrating, you may have PostGIS configuration issues and your database is not recognizing the geospatial datatypes. Read up on the documentation for RGeo and ActiveRecord PostGIS Adapter to troubleshoot.
+
 ####Seeding the data
 Many of the offices have coordinates preloaded in the seed data. Any that don't will automatically be geocoded during seeding.
 
