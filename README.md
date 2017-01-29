@@ -75,7 +75,7 @@ ruby lib/shapefiles.rb
 ```
 You did it, friend. Now make a sandwich while you seed the ZCTAs (Zip Code Tabulation Area)
 ```
-ruby lib/zctas.rb
+ruby lib/import_zcta.rb
 ```
 Then add photo URLs to the reps
 ```
