@@ -10,50 +10,49 @@ class Rep < ApplicationRecord
   class << self
     # Address value from params.
     attr_accessor :address
-    # Lat/lon coordinates geocoded from :address.
+    # Lat/lon coordinates taken from params request, or geocoded from :address.
     attr_accessor :coordinates
-    # Address' State, which is the parent of the :district.
+    # The State that the :district belongs to.
     attr_accessor :state
     # Voting district found by a GIS database query to find the geometry that contains the :coordinates.
     attr_accessor :district
-    # Raw Rep records from the database that need to be packaged for JSON response.
-    attr_accessor :raw_reps
+    # Rep records that are associated to the district and state.
+    attr_accessor :reps
   end # Metaclass ----------------------------------------------------------------------------------------------------
 
-  # Instance attribute that holds offices sorted by location after calling the :sort_ofices method.
+  # Instance attribute that holds offices sorted by location after calling the :sort_offices method.
   attr_accessor :sorted_offices
 
-  # Find the reps in the db associated to that address and assemble into JSON blob
+  # Find the reps in the db associated to location, and sort the offices by distance.
   def self.find_em(address: nil, lat: nil, long: nil)
     init(address, lat, long)
     return [] if coordinates.blank?
     find_district_and_state
-    self.raw_reps = Rep.yours(state: state, district: district).includes(:office_locations)
-    self.raw_reps = raw_reps.distinct
-    raw_reps.each { |rep| rep.sort_offices(coordinates) }
+    self.reps = Rep.yours(state: state, district: district).includes(:office_locations)
+    self.reps = reps.distinct
+    reps.each { |rep| rep.sort_offices(coordinates) }
   end
 
+  # Reset attribute values, set the coordinates and address if available.
   def self.init(address, lat, long)
-    self.raw_reps    = nil
+    self.reps        = nil
     self.coordinates = [lat.to_f, long.to_f] - [0.0]
     self.state       = nil
     self.address     = address
-    return unless coordinates.blank? && state.blank?
+    return unless coordinates.blank?
     find_coordinates_by_address if address
   end
 
   # Geocode address into [lat, lon] coordinates.
-  # Collect the lat and lon from the coordinates and create a new RGeo Point object.
   def self.find_coordinates_by_address
     self.coordinates = Geocoder.coordinates(address)
   end
 
-  # Query all of the districts within that state.
-  # Select the district from the collection of state districts that contains the :point.
+  # Find the district geometry that contains the coordinates, and the district and state it belongs to.
   def self.find_district_and_state
     lat           = coordinates.first
     lon           = coordinates.last
-    self.district = DistrictGeom.containing_latlon(lat, lon).includes(:district).take.district
+    self.district = DistrictGeom.containing_latlon(lat, lon).includes(district: :state).take.district
     self.state    = district.state
   end
 
@@ -65,12 +64,13 @@ class Rep < ApplicationRecord
     sorted_offices.blank? ? [] : sorted_offices.each { |office| office.calculate_distance(coordinates) }
   end
 
+  # Protect against nil type errors.
   def district_code
     district.code unless district_id.blank?
   end
 
+  # Return office_locations even if they were never sorted.
   def sorted_offices_array
-    return sorted_offices if sorted_offices
-    office_locations
+    sorted_offices || office_locations
   end
 end
