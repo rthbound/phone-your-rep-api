@@ -52,8 +52,11 @@ module VCardable
   end
 
   def add_contact_url(maker)
-    return unless rep.contact_form
-    maker.add_url(rep.contact_form)
+    if rep.contact_form
+      maker.add_url(rep.contact_form)
+    elsif rep.url
+      maker.add_url(rep.url)
+    end
   end
 
   def add_primary_phone(maker)
