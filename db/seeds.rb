@@ -43,9 +43,9 @@ def parse_yaml(file)
   YAML.load(File.open(Rails.root.join('lib', 'seeds', file)))
 end
 
-@offices = parse_yaml('115-legislators-district-offices-011917.yaml')
-@reps    = parse_yaml('115-legislators-current-011917.yaml')
-@socials = parse_yaml('115-legislators-social-media-011917.yaml')
+@offices = parse_yaml('115-legislators-district-offices-012917.yaml')
+@reps    = parse_yaml('115-legislators-current-012917.yaml')
+@socials = parse_yaml('115-legislators-social-media-012917.yaml')
 
 def seed_reps
   Rep.destroy_all
