@@ -3,7 +3,7 @@ module VCardable
   def make_vcard
     Vpim::Vcard::Maker.make2 do |maker|
       add_rep_name(maker)
-      add_contact_form(maker)
+      add_contact_url(maker)
       add_primary_phone(maker)
       add_primary_address(maker)
       add_secondary_office(maker)
@@ -51,12 +51,9 @@ module VCardable
     end
   end
 
-  def add_contact_form(maker)
+  def add_contact_url(maker)
     return unless rep.contact_form
-    maker.add_email(rep.contact_form) do |email|
-      email.location  = 'work'
-      email.preferred = true
-    end
+    maker.add_url(rep.contact_form)
   end
 
   def add_primary_phone(maker)
