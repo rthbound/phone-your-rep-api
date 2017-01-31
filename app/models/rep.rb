@@ -55,7 +55,7 @@ class Rep < ApplicationRecord
     lat           = coordinates.first
     lon           = coordinates.last
     district_geom = DistrictGeom.containing_latlon(lat, lon).includes(district: :state).take
-    return unless district_geom
+    return if district_geom.blank?
     self.district = district_geom.district
     self.state    = district.state
   end
