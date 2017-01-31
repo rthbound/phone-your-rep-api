@@ -5,4 +5,6 @@ class District < ApplicationRecord
   has_many   :reps
   has_many   :zcta_districts, dependent: :destroy
   has_many   :zctas, through: :zcta_districts
+
+  is_impressionable counter_cache: true, column_name: :requests
 end
