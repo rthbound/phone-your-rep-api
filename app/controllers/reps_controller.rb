@@ -12,6 +12,7 @@ class RepsController < ApplicationController
     # return the first result, or a random one
     if address || lat || long
       @reps = Rep.find_em address: address, lat: lat, long: long
+      return if @reps.blank?
       @district = @reps.detect { |rep| !rep.district.blank? }.district
     else
       @reps = Rep.all.includes(:office_locations, :district, :state)
@@ -60,6 +61,7 @@ class RepsController < ApplicationController
   end
 
   def make_impression
+    return if @district.blank?
     impressionist @district, '', unique: [:ip_address]
   end
 end
