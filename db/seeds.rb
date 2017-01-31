@@ -44,7 +44,7 @@ def parse_yaml(file)
 end
 
 @offices = parse_yaml('115-legislators-district-offices-012917.yaml')
-@reps    = parse_yaml('115-legislators-current-012917.yaml')
+@reps    = parse_yaml('115-legislators-current-013117.yaml')
 @socials = parse_yaml('115-legislators-social-media-012917.yaml')
 
 def seed_reps

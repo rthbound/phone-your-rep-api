@@ -13,7 +13,8 @@ class RepsController < ApplicationController
     if address || lat || long
       @reps = Rep.find_em address: address, lat: lat, long: long
       return if @reps.blank?
-      @district = @reps.detect { |rep| !rep.district.blank? }.district
+      house_rep = @reps.detect { |rep| !rep.district.blank? }
+      @district = house_rep.district if house_rep
     else
       @reps = Rep.all.includes(:office_locations, :district, :state)
     end
