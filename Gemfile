@@ -26,6 +26,7 @@ gem 'rqrcode', '~> 0.10.1'
 gem 'simple_token_authentication', '~> 1.0'
 gem 'vpim', '~> 13.11', '>= 13.11.11'
 gem 'yajl-ruby'
+gem 'impressionist', '~> 1.5.0', '>= 1.5.2'
 
 group :development, :test do
   gem 'database_cleaner'
