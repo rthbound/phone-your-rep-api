@@ -1,1 +1,0 @@
-class Impression < ApplicationRecord; end
