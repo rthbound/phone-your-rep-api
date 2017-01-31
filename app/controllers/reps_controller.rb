@@ -2,7 +2,7 @@
 class RepsController < ApplicationController
   acts_as_token_authentication_handler_for User, only: [:create, :update, :destroy]
   before_action :set_rep, only: [:show, :update, :destroy]
-  # after_action :make_impressions, only: [:index]
+  after_action :make_impression, only: [:index]
 
   # GET /reps
   def index
@@ -10,16 +10,12 @@ class RepsController < ApplicationController
     lat     = params[:lat]
     long    = params[:long]
     # return the first result, or a random one
-    @reps = if address || lat || long
-              Rep.find_em address: address, lat: lat, long: long
-            else
-              # Would like to find requesting IP address, geocode it and return the closest rep
-              # request = Rack::Request.new Rails.env
-              # result = request.location
-              # @office = OfficeLocation.near(result.postal_code)
-              # @reps = @office.rep
-              Rep.all.includes(:office_locations, :district, :state)
-            end
+    if address || lat || long
+      @reps = Rep.find_em address: address, lat: lat, long: long
+      @district = @reps.detect { |rep| !rep.district.blank? }.district
+    else
+      @reps = Rep.all.includes(:office_locations, :district, :state)
+    end
     @self = request.url
   end
 
@@ -63,7 +59,7 @@ class RepsController < ApplicationController
     @pfx = request.protocol + request.host_with_port
   end
 
-  # def make_impressions
-  #   @reps.each { |rep| impressionist rep }
-  # end
+  def make_impression
+    impressionist @district, '', unique: [:ip_address]
+  end
 end
