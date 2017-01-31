@@ -17,4 +17,5 @@ json.extract! office_location,
               :latitude,
               :longitude,
               :v_card_link,
+              :downloads,
               :qr_code_link
