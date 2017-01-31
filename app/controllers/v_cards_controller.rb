@@ -5,6 +5,6 @@ class VCardsController < ApplicationController
     @rep    = @office.rep
 
     send_data @office.v_card, filename: "#{@rep.official_full} #{@rep.state.abbr}.vcf"
-    impressionist @office
+    impressionist @office, '', unique: [:impressionable_id, :ip_address]
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131011617) do
+ActiveRecord::Schema.define(version: 20170131060733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,14 +76,15 @@ ActiveRecord::Schema.define(version: 20170131011617) do
     t.float    "latitude"
     t.float    "longitude"
     t.geometry "lonlat",       limit: {:srid=>0, :type=>"point"}
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.string   "bioguide_id"
     t.string   "fax"
     t.string   "hours"
     t.string   "qr_code_uid"
     t.string   "qr_code_name"
     t.string   "v_card"
+    t.integer  "downloads",                                       default: 0
   end
 
   create_table "reps", force: :cascade do |t|

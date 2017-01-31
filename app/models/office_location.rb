@@ -8,7 +8,7 @@ class OfficeLocation < ApplicationRecord
   geocoded_by      :full_address
   after_validation :geocode, if: :needs_geocoding?
   scope            :find_with_rep, ->(id) { where(id: id).includes(:rep) }
-  is_impressionable
+  is_impressionable counter_cache: true, column_name: :downloads
 
   dragonfly_accessor :qr_code
   attr_reader        :distance
