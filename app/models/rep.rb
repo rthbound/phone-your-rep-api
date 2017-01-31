@@ -5,6 +5,7 @@ class Rep < ApplicationRecord
   has_many   :office_locations, dependent: :destroy, foreign_key: :bioguide_id, primary_key: :bioguide_id
   scope      :yours, ->(state:, district:) { where(district: district).or(Rep.where(state: state, district: nil)) }
   serialize  :committees, Array
+  is_impressionable
 
   # Open up Rep Metaclass to set Class attributes --------------------------------------------------------------------
   class << self

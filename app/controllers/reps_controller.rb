@@ -2,6 +2,7 @@
 class RepsController < ApplicationController
   acts_as_token_authentication_handler_for User, only: [:create, :update, :destroy]
   before_action :set_rep, only: [:show, :update, :destroy]
+  after_action :make_impressions, only: [:index]
 
   # GET /reps
   def index
@@ -60,5 +61,9 @@ class RepsController < ApplicationController
   def set_rep
     @rep = Rep.find_by(bioguide_id: params[:id])
     @pfx = request.protocol + request.host_with_port
+  end
+
+  def make_impressions
+    @reps.each { |rep| impressionist rep }
   end
 end
