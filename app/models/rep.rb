@@ -29,6 +29,7 @@ class Rep < ApplicationRecord
     init(address, lat, long)
     return [] if coordinates.blank?
     find_district_and_state
+    return [] if district.blank?
     self.reps = Rep.yours(state: state, district: district).includes(:office_locations)
     self.reps = reps.distinct
     reps.each { |rep| rep.sort_offices(coordinates) }
@@ -53,7 +54,9 @@ class Rep < ApplicationRecord
   def self.find_district_and_state
     lat           = coordinates.first
     lon           = coordinates.last
-    self.district = DistrictGeom.containing_latlon(lat, lon).includes(district: :state).take.district
+    district_geom = DistrictGeom.containing_latlon(lat, lon).includes(district: :state).take
+    return unless district_geom
+    self.district = district_geom.district
     self.state    = district.state
   end
 
