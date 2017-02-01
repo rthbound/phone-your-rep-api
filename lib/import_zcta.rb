@@ -9,15 +9,6 @@ class ImportZCTA
     @files = files
   end
 
-  def find_or_create_zcta(zcta_code)
-    if zcta = Zcta.find_by(zcta: zcta_code)
-      zcta
-    else
-      puts "Created new ZCTA #{zcta_code}"
-      Zcta.create(zcta: zcta_code)
-    end
-  end
-
   def zcta_code(row)
     zcta5 = row['ZCTA5']
     case zcta5.size
@@ -43,7 +34,7 @@ class ImportZCTA
     dis_cod    = row['CD'].size == 1 ? '0' + row['CD'] : row['CD']
     zcta_code  = zcta_code(row)
     district   = District.find_by(full_code: state_code + dis_cod)
-    zcta       = find_or_create_zcta(zcta_code)
+    zcta       = Zcta.where(zcta: zcta_code).first_or_create
     add_district(district, zcta, zcta_code) unless district.blank?
   end
 
