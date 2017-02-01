@@ -23,11 +23,6 @@ class OfficeLocation < ApplicationRecord
     latitude.blank? || longitude.blank?
   end
 
-  def geocode
-    super
-    set_lonlat
-  end
-
   def add_qr_code_img
     self.qr_code = RQRCode::QRCode.new(v_card, size: 22, level: :h).as_png(size: 360).to_string
     qr_code.name = "#{rep.last}_#{office_type}_#{id}.png"
