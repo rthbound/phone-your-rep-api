@@ -81,7 +81,7 @@ def seed_reps
       zip:         address_ary.pop,
       state:       address_ary.pop,
       city:        address_ary.pop,
-      address:     address_ary.join(' ').delete(';'),
+      address:     address_ary.join(' ').delete(';').sub('HOB', 'House Office Building'),
       phone:       term['phone'],
       fax:         term['fax'],
       hours:       term['hours']
