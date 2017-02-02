@@ -8,6 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'activerecord-postgis-adapter', '~> 4.0', '>= 4.0.2'
+gem 'bugsnag', '~> 5.1.0'
 gem 'devise'
 gem 'dragonfly', '~> 1.1.1'
 gem 'faker', '~> 1.6', '>= 1.6.6'
