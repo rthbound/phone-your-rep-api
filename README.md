@@ -82,9 +82,9 @@ ruby lib/import_zcta.rb
 ```
 Then add photo URLs to the reps
 ```
-ruby lib/add_photots.rb
+ruby lib/add_photos.rb
 ```
-and generate V-cards for every office location
+and generate V-cards for every office location (added photos to V-cards, this takes a bit longer now)
 ```
 ruby lib/add_v_cards.rb
 ```
