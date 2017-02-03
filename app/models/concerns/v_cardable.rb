@@ -12,6 +12,8 @@ module VCardable
     end
   end
 
+  private
+
   def add_secondary_office(maker)
     rep.office_locations.each do |office|
       next if office.office_type == office_type
