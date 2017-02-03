@@ -85,11 +85,11 @@ module VCardable
     rescue OpenURI::HTTPError => e
       logger.error e
     end
-    if web_photo
-      maker.add_photo do |photo|
-        photo.image = web_photo
-        photo.type  = 'JPEG'
-      end
+
+    return unless web_photo
+    maker.add_photo do |photo|
+      photo.image = web_photo
+      photo.type  = 'JPEG'
     end
   end
 end
