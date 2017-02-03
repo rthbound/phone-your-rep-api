@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 module VCardable
-  def make_vcard
+  def make_v_card
     Vpim::Vcard::Maker.make2 do |maker|
       add_rep_name(maker)
+      add_rep_photo(maker)
       add_contact_url(maker)
       add_primary_phone(maker)
       add_primary_address(maker)
@@ -75,6 +76,20 @@ module VCardable
       name.given    = rep.first if rep.first
       name.family   = rep.last if rep.last
       name.suffix   = rep.suffix if rep.suffix
+    end
+  end
+
+  def add_rep_photo(maker)
+    begin
+      web_photo = open(rep.photo) { |f| f.read }
+    rescue OpenURI::HTTPError => e
+      logger.error e
+    end
+    if web_photo
+      maker.add_photo do |photo|
+        photo.image = web_photo
+        photo.type  = 'JPEG'
+      end
     end
   end
 end
