@@ -30,7 +30,7 @@ module VCardable
 
   def add_secondary_phone(maker, office, index)
     phone  = office.phone
-    return if phone.blank? || (index + 1) > TEL_TYPES.length || @phones.include?(phone)
+    return if phone.blank? || index + 1 > TEL_TYPES.length || @phones.include?(phone)
     @phones << phone
     maker.add_tel(phone) do |tel|
       tel.preferred  = false
