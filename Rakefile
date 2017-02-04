@@ -29,13 +29,8 @@ task "missing_images" do
 
       puts "checking #{sized_image_url}"
 
-      begin
-        open(sized_image_url) # { |f| f.read }
-
-        true
-      rescue OpenURI::HTTPError => e
-        false
-      end
+      curl = Curl::Easy.http_get(sized_image_url)
+      !!curl.header_str.match(/HTTP\/1.1 200 OK/)
     end
 
     if presence.all?
