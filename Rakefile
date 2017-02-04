@@ -23,7 +23,7 @@ task "missing_images" do
       curl = Curl::Easy.http_get(sized_image_url)
       !!curl.header_str.match(/HTTP\/1.1 200 OK/)
     end
-    row = "#{entity["name"]["first"]} #{entity["last"]}"
+    row = "#{entity["name"]["first"]} #{entity["name"]["last"]},#{entity["id"]["bioguide"]}"
 
     if presence.all?
       next
