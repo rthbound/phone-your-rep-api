@@ -4,6 +4,7 @@ module VCardable
   ADDR_TYPES = %w(home other).freeze
 
   def make_v_card
+    @phones = []
     Vpim::Vcard::Maker.make2 do |maker|
       add_rep_name(maker)
       add_rep_photo(maker)
@@ -28,8 +29,10 @@ module VCardable
   end
 
   def add_secondary_phone(maker, office, index)
-    return if office.phone.blank? || (index + 1) > TEL_TYPES.length
-    maker.add_tel(office.phone) do |tel|
+    phone  = office.phone
+    return if phone.blank? || (index + 1) > TEL_TYPES.length || @phones.include?(phone)
+    @phones << phone
+    maker.add_tel(phone) do |tel|
       tel.preferred  = false
       tel.location   = TEL_TYPES[index]
       tel.capability = 'voice'
@@ -69,6 +72,7 @@ module VCardable
 
   def add_primary_phone(maker)
     return if phone.blank?
+    @phones << phone
     maker.add_tel(phone) do |tel|
       tel.preferred  = true
       tel.location   = 'work'
