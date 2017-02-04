@@ -40,7 +40,7 @@ module VCardable
   end
 
   def add_secondary_address(maker, office, index)
-    return if (index + 1) > ADDR_TYPES.length
+    return if index + 1 > ADDR_TYPES.length
     maker.add_addr do |addr|
       addr.preferred  = false
       addr.location   = ADDR_TYPES[index]
