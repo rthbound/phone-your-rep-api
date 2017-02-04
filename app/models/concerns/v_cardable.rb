@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 module VCardable
+  TEL_TYPES  = %w(home work cell pager other fax).freeze
+  ADDR_TYPES = %w(home other).freeze
+
   def make_v_card
     Vpim::Vcard::Maker.make2 do |maker|
       add_rep_name(maker)
@@ -15,27 +18,29 @@ module VCardable
   private
 
   def add_secondary_office(maker)
-    rep.office_locations.each do |office|
-      next if office.office_type == office_type
-      add_secondary_address(maker, office)
-      add_secondary_phone(maker, office)
-      break
+    index = 0
+    rep.office_locations.order('office_type DESC').each do |office|
+      next if office == self
+      add_secondary_address(maker, office, index)
+      add_secondary_phone(maker, office, index)
+      index += 1
     end
   end
 
-  def add_secondary_phone(maker, office)
-    return if office.phone.blank?
+  def add_secondary_phone(maker, office, index)
+    return if office.phone.blank? || (index + 1) > TEL_TYPES.length
     maker.add_tel(office.phone) do |tel|
       tel.preferred  = false
-      tel.location   = 'work'
+      tel.location   = TEL_TYPES[index]
       tel.capability = 'voice'
     end
   end
 
-  def add_secondary_address(maker, office)
+  def add_secondary_address(maker, office, index)
+    return if (index + 1) > ADDR_TYPES.length
     maker.add_addr do |addr|
       addr.preferred  = false
-      addr.location   = 'work'
+      addr.location   = ADDR_TYPES[index]
       addr.street     = office.suite ? "#{office.address}, #{office.suite}" : office.address
       addr.locality   = office.city
       addr.region     = office.state
