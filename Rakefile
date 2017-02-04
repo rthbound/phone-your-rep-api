@@ -13,35 +13,26 @@ task "missing_images" do
   sizes = %w{ 450x550 225x275 }
   tmpls = "https://theunitedstates.io/images/congress/:size:/:bioguide_id:.jpg"
 
-  missing = {
-    "450x550" => [],
-    "225x275" => [],
-    "both"    => []
-  }
-
   yaml.each do |entity|
-    puts "Checking #{entity["id"]["bioguide"]}"
     presence = sizes.map do |size|
       sized_image_url = tmpls.gsub(/(:size:|:bioguide_id:)/, {
         ":size:"        => size,
         ":bioguide_id:" => entity["id"]["bioguide"]
       })
 
-      puts "checking #{sized_image_url}"
-
       curl = Curl::Easy.http_get(sized_image_url)
       !!curl.header_str.match(/HTTP\/1.1 200 OK/)
     end
+    row = "#{entity["name"]["first"]} #{entity["last"]}"
 
     if presence.all?
       next
     elsif presence.none?
-      missing["both"] << entity["id"]
+      puts "#{row},1,1"
     elsif !presence[0]
-      missing[sizes[0]] << entity["id"]
+      puts "#{row},1,0"
     elsif !presence[1]
-      missing[sizes[1]] << entity["id"]
+      puts "#{row},0,1"
     end
   end
-  puts missing
 end
