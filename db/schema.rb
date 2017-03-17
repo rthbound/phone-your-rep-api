@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317120320) do
+ActiveRecord::Schema.define(version: 20170317200701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,14 +108,15 @@ ActiveRecord::Schema.define(version: 20170317120320) do
     t.string   "senate_class"
     t.string   "bioguide_id"
     t.string   "photo"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "nickname"
     t.string   "instagram"
     t.string   "instagram_id"
     t.string   "facebook_id"
     t.string   "youtube_id"
     t.string   "twitter_id"
+    t.boolean  "active",        default: true
     t.index ["district_id"], name: "index_reps_on_district_id", using: :btree
     t.index ["state_id"], name: "index_reps_on_state_id", using: :btree
   end
