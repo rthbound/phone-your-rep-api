@@ -60,7 +60,10 @@ class DbPyrUpdate
 
   def update_rep_capitol_office(rep, term)
     address_ary = term['address'].split(' ')
-    cap_office  = rep.office_locations.find_or_create_by(office_type: 'capitol')
+    cap_office  = OfficeLocation.find_or_create_by(
+      office_type: 'capitol',
+      bioguide_id: rep.bioguide_id
+    )
     cap_office.update(
       office_id: "#{rep.bioguide_id}-capitol",
       phone:     term['phone'],
