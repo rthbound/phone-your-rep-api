@@ -21,6 +21,7 @@ class DbPyrUpdate
       update_rep_name(rep, name)
       update_rep_term_info(rep, term)
       update_rep_capitol_office(rep, term)
+      update_rep_photo(rep)
       rep.active = true
     end
     db_rep.save
@@ -74,12 +75,42 @@ class DbPyrUpdate
     )
   end
 
+  def update_rep_photo(rep)
+    rep.photo = photo_slug(rep.bioguide_id)
+  end
+
+  def photo_slug(rep_bioguide_id)
+    "https://theunitedstates.io/images/congress/450x550/#{rep_bioguide_id}.jpg"
+  end
+
   def historical_reps(file)
-    puts file
+    @historical_reps = parse_yaml(file)
+    @historical_reps.each do |h_rep|
+      rep = Rep.find_by(bioguide_id: h_rep['id']['bioguide'])
+      next if rep.blank?
+      rep.update(active: false)
+    end
   end
 
   def socials(file)
-    puts file
+    @socials = parse_yaml(file)
+    @socials.each do |social|
+      rep = Rep.find_or_create_by(bioguide_id: social['id']['bioguide'])
+      update_rep_socials(rep, social)
+      rep.save
+    end
+  end
+
+  def update_rep_socials(rep, social)
+    rep.facebook     = social['social']['facebook']
+    rep.facebook_id  = social['social']['facebook_id']
+    rep.twitter      = social['social']['twitter']
+    rep.twitter_id   = social['social']['twitter_id']
+    rep.youtube      = social['social']['youtube']
+    rep.youtube_id   = social['social']['youtube_id']
+    rep.instagram    = social['social']['instagram']
+    rep.instagram_id = social['social']['instagram_id']
+    rep.googleplus   = social['social']['googleplus']
   end
 
   def office_locations(file)

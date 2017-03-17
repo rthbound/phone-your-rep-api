@@ -59,8 +59,5 @@ namespace :db do
       desc 'Update all rep and office_location data from default yaml files'
       task all: [:retired_reps, :current_reps, :socials, :office_locations]
     end
-
-    desc 'Alias of db:pyr:update:all'
-    task update: Rake::Task['db:pyr:update:all'].invoke
   end
 end
