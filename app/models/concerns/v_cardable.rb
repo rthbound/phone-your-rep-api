@@ -93,7 +93,7 @@ module VCardable
   def add_rep_photo(maker)
     begin
       web_photo = open(rep.photo) { |f| f.read }
-    rescue OpenURI::HTTPError => e
+    rescue => e
       logger.error e
     end
 
