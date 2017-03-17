@@ -62,17 +62,19 @@ class DbPyrUpdate
     address_ary = term['address'].split(' ')
     cap_office  = rep.office_locations.find_or_create_by(office_type: 'capitol')
     cap_office.update(
-      phone:   term['phone'],
-      fax:     term['fax'],
-      hours:   term['hours'],
-      zip:     address_ary.pop,
-      state:   address_ary.pop,
-      city:    address_ary.pop,
+      office_id: "#{rep.bioguide_id}-capitol",
+      phone:     term['phone'],
+      fax:       term['fax'],
+      hours:     term['hours'],
+      zip:       address_ary.pop,
+      state:     address_ary.pop,
+      city:      address_ary.pop,
       address: address_ary.
         join(' ').
         delete(';').
         sub('HOB', 'House Office Building')
     )
+    cap_office.add_v_card
   end
 
   def update_rep_photo(rep)
@@ -114,6 +116,47 @@ class DbPyrUpdate
   end
 
   def office_locations(file)
-    puts file
+    @active_offices = []
+    @yaml_offices   = parse_yaml(file)
+    @yaml_offices.each do |yaml_office|
+      next if yaml_office['offices'].blank?
+      find_or_create_offices(yaml_office)
+    end
+    district_offices = OfficeLocation.where(office_type: 'district')
+    inactive_offices = district_offices - @active_offices
+    inactive_offices.each { |o| o.update(active: false) }
+  end
+
+  def find_or_create_offices(yaml_office)
+    yaml_office['offices'].each do |yaml_off|
+      office = OfficeLocation.find_or_create_by(
+        bioguide_id: yaml_office['id']['bioguide'],
+        city:        yaml_off['city'],
+        office_type: 'district'
+      )
+      update_location_info(office, yaml_off)
+      update_other_office_info(office, yaml_off)
+      @active_offices << office
+    end
+  end
+
+  def update_location_info(office, yaml_off)
+    office.office_id = yaml_off['id']
+    office.suite     = yaml_off['suite']
+    office.phone     = yaml_off['phone']
+    office.address   = yaml_off['address']
+    office.building  = yaml_off['building']
+    office.city      = yaml_off['city']
+    office.state     = yaml_off['state']
+    office.zip       = yaml_off['zip']
+    office.latitude  = yaml_off['latitude']
+    office.longitude = yaml_off['longitude']
+  end
+
+  def update_other_office_info(office, yaml_off)
+    office.fax    = yaml_off['fax']
+    office.hours  = yaml_off['hours']
+    office.active = true
+    office.add_v_card
   end
 end
