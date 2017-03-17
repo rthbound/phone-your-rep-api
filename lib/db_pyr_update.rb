@@ -69,6 +69,7 @@ class DbPyrUpdate
       zip:       address_ary.pop,
       state:     address_ary.pop,
       city:      address_ary.pop,
+      active:    true,
       address: address_ary.
         join(' ').
         delete(';').
