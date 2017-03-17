@@ -26,13 +26,13 @@ class OfficeLocation < ApplicationRecord
 
   def add_qr_code_img
     self.qr_code = RQRCode::QRCode.new(v_card, size: 22, level: :h).as_png(size: 360).to_string
-    qr_code.name = "#{rep.last}_#{office_type}_#{id}.png"
+    qr_code.name = "#{office_id}.png"
     save
   end
 
   def add_v_card
-    VCard.where(office_location_id: id).destroy_all
-    v_card = VCard.create data: make_v_card.to_s
+    v_card = VCard.find_or_create_by(office_location_id: id)
+    v_card.data = make_v_card.to_s
     update_attribute :v_card, v_card
   end
 
