@@ -66,6 +66,7 @@ class DbPyrUpdate
     )
     cap_office.update(
       office_id: "#{rep.bioguide_id}-capitol",
+      rep:       rep,
       phone:     term['phone'],
       fax:       term['fax'],
       hours:     term['hours'],
