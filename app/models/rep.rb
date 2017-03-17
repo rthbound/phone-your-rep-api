@@ -32,7 +32,9 @@ class Rep < ApplicationRecord
     return [] if coordinates.blank?
     find_district_and_state
     return [] if district.blank?
-    self.reps = Rep.yours(state: state, district: district).includes(:office_locations)
+    self.reps = Rep.yours(state: state, district: district).
+      where(active: true).
+      includes(:office_locations)
     self.reps = reps.distinct
     reps.each { |rep| rep.sort_offices(coordinates) }
   end
