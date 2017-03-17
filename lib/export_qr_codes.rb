@@ -9,7 +9,7 @@ def export_qr_codes
   CSV.open(file, 'wb') do |csv|
     csv << header
     offices.each do |o|
-      csv << [o.id, o.qr_code_uid, o.qr_code_name]
+      csv << [o.office_id, o.qr_code_uid, o.qr_code_name]
       puts 'exported'
     end
   end
