@@ -66,10 +66,15 @@ class Rep < ApplicationRecord
 
   # Sort the offices by proximity to the request coordinates, making sure to not miss offices that aren't geocoded.
   def sort_offices(coordinates)
-    closest_offices       = office_locations.near(coordinates, 4000)
-    closest_offices      += office_locations
+    closest_offices       = active_office_locations.near(coordinates, 4000)
+    closest_offices      += active_office_locations
     self.sorted_offices   = closest_offices.uniq || []
     sorted_offices.blank? ? [] : sorted_offices.each { |office| office.calculate_distance(coordinates) }
+  end
+
+  # Return only active offices
+  def active_office_locations
+    office_locations.where(active: true)
   end
 
   # Protect against nil type errors.
