@@ -35,9 +35,6 @@ namespace :pyr do
       sh "rm -rf #{source_file.to_s}"
     end
 
-    desc 'Generate QR codes, upload to S3 bucket, and delete locally'
-    task create: [:generate, :clean, :empty, :upload, :delete, :publish]
-
     desc 'Export QR Code UIDs from CSV file'
     task :export do
       offices = OfficeLocation.where(active: true)
@@ -56,9 +53,8 @@ namespace :pyr do
 
     desc 'Publish QR codes to production'
     task publish: [:export] do
-      sh "git commit -am 'generate and export qr codes'"
+      sh "git commit -am 'generate and export qr codes #{DateTime.now}'"
       sh 'git push heroku master'
-      `heroku run rake pyr:qr_codes:import`
     end
 
     desc 'Import QR Code UIDs from CSV file'
@@ -80,6 +76,9 @@ namespace :pyr do
       end
       puts "Imported #{i} QR codes"
     end
+
+    desc 'Generate QR codes, upload to S3 bucket, and delete locally'
+    task create: [:generate, :clean, :empty, :upload, :delete, :publish]
 
     def get_source_file
       if ENV['source_file']
