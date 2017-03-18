@@ -49,7 +49,7 @@ If you've already configured the database before, and are just resetting or upda
 rails db:pyr:setup_alert
  ```
  If you're configuring for the first time and you're getting errors, or you don't want to do a complete reset, or you're some kind of control freak, here are the manual steps broken down:
- 
+
 ####Creating the spatial database and migrating
 ```
 rails db:drop # skip this unless you're resetting
@@ -90,7 +90,7 @@ ruby lib/add_v_cards.rb
 ```
 and load up the QR code URL data, to access the public QR code images stored on the Phone Your Rep S3 server
 ```
-ruby lib/import_qr_codes.rb
+rake pyr:qr_codes:import
 ```
 Finally
 ```
