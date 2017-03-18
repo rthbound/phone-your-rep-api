@@ -78,6 +78,7 @@ def seed_reps
     r.senate_class  = format('0%o', term['class']) if term['class']
     r.office_locations.build(
       office_type: 'capitol',
+      office_id:   "#{r.bioguide_id}-capitol",
       zip:         address_ary.pop,
       state:       address_ary.pop,
       city:        address_ary.pop,
@@ -117,6 +118,7 @@ def seed_office_locations
     office['offices'].each do |off|
       rep.office_locations.build(
         office_type: 'district',
+        office_id:   off['id'],
         suite:       off['suite'],
         phone:       off['phone'],
         address:     off['address'],
