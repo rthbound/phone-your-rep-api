@@ -3,11 +3,11 @@ module VCardable
   TEL_TYPES  = %w(home work cell pager other fax).freeze
   ADDR_TYPES = %w(home other).freeze
 
-  def make_v_card
+  def make_v_card(photo: true)
     @phones = []
     Vpim::Vcard::Maker.make2 do |maker|
       add_rep_name(maker)
-      add_rep_photo(maker)
+      add_rep_photo(maker) if photo
       add_contact_url(maker)
       add_primary_phone(maker)
       add_primary_address(maker)
