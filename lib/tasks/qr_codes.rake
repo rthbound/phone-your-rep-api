@@ -36,7 +36,7 @@ namespace :pyr do
     end
 
     desc 'Generate QR codes, upload to S3 bucket, and delete locally'
-    task create: [:generate, :clean, :empty, :upload, :delete]
+    task create: [:generate, :clean, :empty, :upload, :delete, :publish]
 
     desc 'Export QR Code UIDs from CSV file'
     task :export do
@@ -52,6 +52,13 @@ namespace :pyr do
         end
         puts "Exported #{i} QR codes"
       end
+    end
+
+    desc 'Publish QR codes to production'
+    task publish: [:export] do
+      sh "git commit -am 'generate and export qr codes'"
+      sh 'git push heroku master'
+      sh 'heroku run rake pyr:qr_codes:import'
     end
 
     desc 'Import QR Code UIDs from CSV file'
