@@ -38,6 +38,22 @@ namespace :pyr do
     desc 'Generate QR codes, upload to S3 bucket, and delete locally'
     task create: [:generate, :clean, :empty, :upload, :delete]
 
+    desc 'Export QR Code UIDs from CSV file'
+    task :export do
+      offices = OfficeLocation.where(active: true)
+      header = %w(id qr_code_uid qr_code_name)
+      file = Rails.root.join('lib', 'qr_codes.csv').to_s
+      CSV.open(file, 'wb') do |csv|
+        csv << header
+        i = 0
+        offices.each do |o|
+          csv << [o.office_id, o.qr_code_uid, o.qr_code_name]
+          i += 1
+        end
+        puts "Exported #{i} QR codes"
+      end
+    end
+
     desc 'Import QR Code UIDs from CSV file'
     task :import do
       i = 0
