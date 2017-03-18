@@ -58,7 +58,7 @@ namespace :pyr do
     task publish: [:export] do
       sh "git commit -am 'generate and export qr codes'"
       sh 'git push heroku master'
-      sh 'heroku run rake pyr:qr_codes:import'
+      `heroku run rake pyr:qr_codes:import`
     end
 
     desc 'Import QR Code UIDs from CSV file'
